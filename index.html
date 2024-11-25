@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>National Email Signature Generator</title>
+
+<script src="https://code.jquery.com/jquery-1.6.4.min.js"></script>
+
+<style>
+body {
+	font-size:15px;
+	
+}
+
+input {
+	
+	width: 200px;
+	height: 20px;
+	font-size: 18px;
+	padding: 5px;
+	margin-bottom:4px;
+	border: 1px solid #ccc;
+	float: right;
+	margin-top: -45px;
+	
+}
+
+span {
+	
+	font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+	font-size:16px;
+	color: #333;
+	width: 103px;
+	
+}
+
+hr {
+	
+
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+
+}
+
+h1 {
+
+	color: #333;
+	font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+	
+}
+
+
+h2 {
+
+	color: #333333;
+	font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+	font-size: 16px;
+
+	
+}
+
+.linkedinTest, .linkedinTest2 {
+	
+	font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+	font-size: 11px;
+	
+}
+
+#previewbox, #previewbox2 {
+
+margin-top: 1px;
+width: 100%;
+
+	
+}
+
+#previewboxbottom {
+
+margin-top: 25px;
+width: 100%;
+border-bottom: 1px solid #ccc;
+padding-bottom: 8px;
+
+	
+}
+
+
+#preview, #preview2 {
+
+margin: 5px;
+padding: 5px;
+padding-top: 15px;
+padding-bottom: 15px;
+border: dashed 2px #ddd;
+	
+}
+
+#linkedinLogo, #linkedinLogo2 {
+	
+	display: none;
+	
+}
+
+#optpositionpost, #optpositionpost2, #faxCont, #faxCont2 {
+	
+	display: none;
+	
+}
+
+#signature, #signature2 {
+
+	margin: 0 auto;
+}
+
+.logo {cursor: pointer;}
+
+.selected {border: 5px solid #ED3940 !important; }
+
+</style>
+
+<script>
+
+$(document).ready(function(){
+	
+		var linkedin = $('#linkedin').val();
+	
+	if (linkedin.val == '' , linkedin.val == null  ) {
+					    
+			 $('#linkedinLogo').css("display", "none");		
+			 $('#linkedinLogo2').css("display", "none");	
+	} else { 
+	
+			 $('#linkedinLogo').css("display", "inline");	
+			 $('#linkedinLogo2').css("display", "inline");	
+	
+	}
+	
+
+	$(".logo").click(function() {
+
+    	 $("#mainLogo").attr("src", $(this).attr("src"));
+    	
+            var $this = $(this),
+            index = $this.index();
+
+	        $(".logo").removeClass('selected');
+	        $this.addClass('selected');
+
+	});
+	
+	
+    $("#name").keyup(function(){
+                //alert($(this).val());
+                $('#namePre').text($(this).val()); 
+				$('#namePre2').text($(this).val()); 
+   
+    });
+	
+	
+	    $("#name").change(function(){
+                //alert($(this).val());
+                $('#namePre').text($(this).val()); 
+				$('#namePre2').text($(this).val()); 
+   
+    });
+
+
+	   $("#email").keyup(function(){
+                //alert($(this).val());
+                $('#emailPre').text($(this).val()); 
+                $('#emailPreLink').text($(this).val()); 
+				$('#emailPre2').text($(this).val()); 
+				$('#emailPreLink2').text($(this).val()); 
+   
+    });
+	
+	
+	    $("#email").change(function(){
+                //alert($(this).val());
+                $('#emailPre').text($(this).val()); 
+                $('#emailPreLink').text($(this).val()); 
+				$('#emailPre2').text($(this).val()); 
+				$('#emailPreLink2').text($(this).val()); 
+   
+    });
+
+
+						$("#email").blur(function(){
+							//alert($(this).val());
+							
+							 var input = $('this');
+							 var val = input.val();
+								if (val && !val.match(/^http([s]?):\/\/.*/)) {
+									input.val('mailto:' + val);
+								}
+								
+								
+							var email =  $(this).val();
+			
+							
+							$('#emailPre').attr("href", 'mailto:'+email);
+							$('#emailPreLink').attr("href", 'mailto:'+email);
+
+							$('#emailPre2').attr("href", 'mailto:'+email);
+							$('#emailPreLink2').attr("href", 'mailto:'+email);
+							
+							
+						
+			   
+				});
+
+
+
+	
+	    $("#position").keyup(function(){
+                //alert($(this).val());
+                $('#posPre').text($(this).val()); 
+				$('#posPre2').text($(this).val()); 
+   
+    });
+	
+		    $("#position").change(function(){
+                //alert($(this).val());
+                $('#posPre').text($(this).val()); 
+				$('#posPre2').text($(this).val()); 
+   
+    });
+	
+	
+	
+	
+		    $("#optposition").keyup(function(){
+
+				
+				 var input = $(this);
+				 var val = input.val();
+					
+					
+					
+				if (val == '') {
+					    
+							 $('#optpositionpost').css("display", "none");		
+							 $('#optpositionpost2').css("display", "none");
+					} else { 
+					
+							 $('#optpositionpost').css("display", "inline");	
+							 $('#optpositionpost2').css("display", "inline");
+					
+					}
+				
+								
+								$('#optposPre').text($(this).val()); 
+								$('#optposPre2').text($(this).val()); 
+				   
+					});
+					
+					
+					
+	 $("#optposition").change(function(){
+	
+	 var input = $(this);
+				 var val = input.val();
+					
+					
+					
+				if (val == '') {
+					    
+							 $('#optpositionpost').css("display", "none");		
+							 $('#optpositionpost2').css("display", "none");	
+					} else { 
+					
+							 $('#optpositionpost').css("display", "inline");
+							 $('#optpositionpost2').css("display", "inline-block");	
+					
+					}
+				
+								
+								$('#optposPre').text($(this).val()); 
+								$('#optposPre2').text($(this).val()); 
+				   
+	});
+	
+	
+/* fax */ 
+
+
+	
+		    $("#fax").keyup(function(){
+
+				
+				 var input = $(this);
+				 var val = input.val();
+					
+					
+					
+				if (val == '') {
+					    
+							 $('#faxCont').css("display", "none");		
+							 $('#faxCont2').css("display", "none");
+					} else { 
+					
+							 $('#faxCont').css("display", "inline");	
+							 $('#faxCont2').css("display", "inline");
+					
+					}
+				
+								
+								$('#faxNumb').text($(this).val()); 
+								$('#faxNumb2').text($(this).val()); 
+				   
+					});
+					
+					
+					
+	 $("#fax").change(function(){
+	
+				 var input = $(this);
+				 var val = input.val();
+					
+					
+					
+				if (val == '') {
+					    
+							 $('#faxCont').css("display", "none");		
+							 $('#faxCont2').css("display", "none");
+					} else { 
+					
+							 $('#faxCont').css("display", "inline");	
+							 $('#faxCont2').css("display", "inline");
+					
+					}
+				
+								
+								$('#faxNumb').text($(this).val()); 
+								$('#faxNumb2').text($(this).val()); 
+				   
+				   
+	});
+	
+
+
+	/*fax ends  */
+
+
+
+
+
+
+	    $("#linkedin").keyup(function(){
+			
+                //alert($(this).val());
+				
+
+			
+                $('#linkedinPre').attr("href", $(this).val());
+				$('#linkedinPre2').attr("href", $(this).val());
+   
+				});
+				
+
+	
+
+
+	$("#linkedin").blur(function(){
+							//alert($(this).val());
+							
+							 var input = $(this);
+							 var val = input.val();
+								if (val && !val.match(/^http([s]?):\/\/.*/)) {
+									input.val('http://' + val);
+								}
+								
+								
+							if (val == '') {
+									
+						 $('#linkedinLogo').css("display", "none");		
+						 $('#linkedinLogo2').css("display", "none");	
+				} else { 
+				
+						 $('#linkedinLogo').css("display", "inline");	
+						 $('#linkedinLogo2').css("display", "inline");	
+				
+				}
+			
+							
+							$('#linkedinPre').attr("href", $(this).val());
+							$('#linkedinTestPre').attr("href", $(this).val());
+							$('#linkedinTest').text($(this).val()); 
+							
+							$('#linkedinPre2').attr("href", $(this).val());
+							$('#linkedinTestPre2').attr("href", $(this).val());
+							$('#linkedinTest2').text($(this).val()); 
+			   
+				});
+	
+	
+	
+	
+	    $("#ext").keyup(function(){
+                //alert($(this).val());
+                $('#extPre').text($(this).val()); 
+				$('#extPre2').text($(this).val()); 
+   
+    });
+	
+	    $("#ext").change(function(){
+                //alert($(this).val());
+                $('#extPre').text($(this).val()); 
+				$('#extPre2').text($(this).val()); 
+   
+    });
+
+
+
+	    $("#phone").keyup(function(){
+                //alert($(this).val());
+                $('#extPhone').text($(this).val()); 
+				$('#extPhone2').text($(this).val()); 
+   
+    });
+	
+	    $("#phone").change(function(){
+                //alert($(this).val());
+                $('#extPhone').text($(this).val()); 
+				$('#extPhone2').text($(this).val()); 
+   
+    });
+	
+});
+
+</script>
+
+
+
+</head>
+
+<body>
+
+
+
+<script>
+
+
+function selectAll(parentNode) {
+	
+	
+    var sel;
+    // IE
+    if (document.selection) {
+		window.getSelection().removeAllRanges()
+        sel = document.body.createTextRange();
+        sel.moveToElementText(parentNode);
+        sel.select();
+    } else {
+		window.getSelection().removeAllRanges()
+        sel = document.createRange();
+        sel.setStartBefore(parentNode);
+        sel.setEndAfter(parentNode);
+        window.getSelection().addRange(sel);
+    }
+}
+
+
+
+
+</script>
+
+<center><img src="national-march-madness-header.png" width="900" alt=""/></center>
+<div style="width: 900px; height: 300px;; margin: 0 auto; margin-top: 15px;">
+ 
+ 
+ 
+	   <div style="width: 440px; height: 320px; float: left;">
+        
+        <font style="font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;">
+        
+         <strong>STEP 1:</strong> Please fill out the following fields below with your personal information<br><br>
+
+         <hr style="margin-bottom: 35px;">
+         
+        
+        </font>
+        
+                <form>
+                
+                    <span>First & Last Name</span><br><br>
+                	<input id="name" type="text" maxlength="35">
+
+                	<span>Email Address</span><br><br>
+                	<input id="email" type="text" maxlength="35">
+
+                	<span>LinkedIn Profile Address</span><br><br>
+                    <input id="linkedin" type="text">
+                    
+                    <span>Position</span><br><br>
+                    <input maxlength="40" id="position" type="text">
+                    
+             <!--        <span>Branch Location</span><br><br>
+                    <input id="optposition" maxlength="40" type="text"> -->
+
+                    <span>Phone Number</span><br><br>
+                    <input id="phone" type="text">
+
+                    <span>Cellphone Number</span><br><br>
+                    <input id="fax" type="text">
+
+                
+                </form>
+                
+
+        
+        
+  </div>
+ 	
+		 <div style="width: 440px; height: 320px; float:right;">
+         
+  
+        		 <div id="previewbox">
+
+
+
+               	 <font style="font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;">
+
+               	 	
+
+                    <strong>STEP 2:</strong> Click on email client button to highlight your signature <br><br>
+                    
+                    <center><button style="margin-right: 30px;padding: 15px;" onclick="selectAll(document.getElementById('signature'))">OUTLOOK</button> <br><br></center>
+                    
+                    
+                    <strong>STEP 3:</strong> Press <em>CTRL+C</em> (or <em>Command + C</em> in a mac) to copy the signature template.<br><br>
+                    
+                    
+                    
+                    <strong>STEP 4:</strong> You can now paste your signature in your preferred email client (Outlook or Gmail).
+                    
+         			</font>
+        	
+ 
+
+
+       
+        </div>
+            
+  
+
+        </div>
+
+
+        	
+         <br clear="all" />
+         
+     
+  
+
+
+ <h1><img onclick="selectAll(document.getElementById('signature'))" style="margin-bottom: -16px; cursor:pointer; " src="outlook.png" width="206" height="54" alt="signature preview"/> SIGNATURE PREVIEW</h1><br>
+ 
+
+ 
+ 	<div id="preview">
+    
+
+        <table id="signature" style="min-width: 700px; max-width: 800px; width: 600px;  min-height: 70px;">
+          <tr valign="middle">
+          	<td width="350" align="right" style="border-right: #a80000 3px solid; padding-top: 8px; padding-right:18px;">
+			<a href="https://www.national1927.com" target="_blank"><img id="mainLogo" src="national-march-madness-sig.jpg" width="350" style="border: none; margin-top: 10px; padding-bottom: 25px;"></a><br></td>
+		<td align="left" width="350" style=" padding-left: 20px; padding-right:10px;">
+				<span id="namePre" style="text-transform:uppercase; font-size: 18px; color: #444; font-weight: bold; margin-right: 10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif; ">John Smith </span>  
+				<a id="linkedinPre" href="http://www.linkedin.com"  target="_blank">  <img id="linkedinLogo" src="linkedlin.png" width="20" height="20" alt=""/></a><br> 
+					<span style="font-size: 14px;padding-bottom: 10px; color: #444;  margin-right: 10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif; "><span style="font-size: 14px;" id="posPre">Sales Representative</span><BR>
+					<span style="font-size: 13px; font-weight:600; color: #A80000; margin-right: 10px; margin-top:10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif; ">e. </span><a id="emailPreLink" style="font-size: 13px; color: #444; margin-right: 10px; font-family: Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif; text-decoration: none;"href="mailto:jsmith@national1927.com"  target="_blank">
+			<span id="emailPre" style="font-size: 13px; color: #444; margin-right: 10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif; ">jsmith@national1927.com</span></a><br>
+					<span id="optpositionpost" style="font-size: 13px;padding-bottom: 10px; color: #444;  margin-right: 10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif; "><span id="optposPre"></span><br></span>
+					<span style="font-size: 12px; font-weight:600; color: #a80000; margin-right: 10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif; ">p. </span><span id="extPhone" style="font-size: 12px; color: #444; margin-right: 10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif; text-align: right;">(123) 456-7890</span><br>
+					
+					<span id="faxCont" style="font-size: 12px; font-weight:600; color: #a80000; margin-right: 10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif; ">c. <span id="faxNumb" style="font-weight:normal; font-size: 12px; color: #444; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif; text-align: right; margin-left: 12px;"></span><br></span>
+        
+        <span style="font-size: 12px; font-weight:600; color: #a80000; margin: 0 8px 0 0; padding-bottom: 10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif; ">w. </span><span style="font-size: 12px; color: #444; margin-right: 10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif; "><a href="http://national1927.com" target="_blank">national1927.com</a></span><BR/>
+			  
+			<span style="font-size:8px;">&nbsp;</span><BR/>
+				<a href="https://www.linkedin.com/company/national-business-equipment/" target="_blank"><img border="0" width="28" height="28" src="linkedlin.png" alt="LinkedIn icon"></a>
+
+				<a href="https://www.facebook.com/national1927/" target="_blank"><img border="0" width="28" height="28" src="facebook.png" alt="facebook icon"></a>
+						
+				<a href="https://twitter.com/national1927" target="_blank"><img border="0" width="28" height="28" src="twitter.png" alt="twitter icon"></a>
+
+				<a href="http://www.youtube.com/channel/UCqnHNWD_rABOFhfBNVylcXg" target="_blank"><img border="0" width="28" height="28" src="youtube.png" alt="youtube icon"></a><BR>
+			
+        
+        </td>
+        
+        </tr>
+        <tr valign="middle">
+        	<td colspan="2">
+       			
+        	</td>
+        </tr>
+        </table>
+</div>     <br> 
+</div>  
+<br><br>
+</body>
+</html>
