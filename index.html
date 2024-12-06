@@ -92,7 +92,8 @@ padding-bottom: 8px;
 
 
 #preview, #preview2 {
-
+transform: scale(0.75);
+transform-origin: top left; /* Adjust origin if needed */
 margin: 5px;
 padding: 5px;
 padding-top: 15px;
@@ -531,7 +532,7 @@ function selectAll(parentNode) {
 
                     <strong>STEP 2:</strong> Click the button to highlight your signature. <br><br>
                     
-                    <center><button style="margin-right: 30px;padding: 15px;" onclick="selectAll(document.getElementById('signature'))">Outlook / Gmail</button> <br><br></center>
+                    <center><button style="margin-right: 30px;padding: 15px;" onclick="selectAll(document.getElementById('signature'))">Gmail / Outlook</button> <br><br></center>
                     
                     
                     <strong>STEP 3:</strong> Press <em>CTRL+C</em> (or <em>Command + C</em> in a mac) to copy the signature template.<br><br>
