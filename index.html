@@ -1,310 +1,285 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>National Email Signature Generator</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>National Email Signature Generator</title>
+  
+  <script src="https://code.jquery.com/jquery-1.6.4.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-1.6.4.min.js"></script>
+  <style>
+    body {
+      font-size:15px;
+      margin:0; 
+      padding:0;
+      font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+    }
 
-<style>
-body {
-	font-size:15px;
-	margin:0;
-	padding:0;
-}
+    input {
+      width: 200px;
+      height: 20px;
+      font-size: 18px;
+      padding: 5px;
+      margin-bottom:4px;
+      border: 1px solid #ccc;
+      float: right;
+      margin-top: -45px;
+    }
 
-input {
-	width: 200px;
-	height: 20px;
-	font-size: 18px;
-	padding: 5px;
-	margin-bottom:4px;
-	border: 1px solid #ccc;
-	float: right;
-	margin-top: -45px;
-}
+    span {
+      font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+      font-size:16px;
+      color: #333;
+      width: 103px;
+    }
 
-span {
-	font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
-	font-size:16px;
-	color: #333;
-	width: 103px;
-}
+    hr {
+      border: 0;
+      height: 1px;
+      background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+      background-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+      background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+      background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+    }
 
-hr {
-    border: 0;
-    height: 1px;
-    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
-    background-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
-    background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
-    background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
-}
+    h1 {
+      color: #333;
+      font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+      text-align: center;
+      font-size:24px;
+      margin:20px 0 10px 0;
+    }
 
-h1 {
-	color: #333;
-	font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
-	text-align: center;
-}
+    #previewbox, #previewbox2 {
+      margin-top: 1px;
+      width: 100%;
+    }
 
-.linkedinTest, .linkedinTest2 {
-	font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
-	font-size: 11px;
-}
+    #previewboxbottom {
+      margin-top: 25px;
+      width: 100%;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 8px;
+    }
 
-#previewbox, #previewbox2 {
-	margin-top: 1px;
-	width: 100%;
-}
+    #preview, #preview2 {
+      margin:0;
+      padding:0;
+      border:none;
+      text-align:left;
+    }
 
-#previewboxbottom {
-	margin-top: 25px;
-	width: 100%;
-	border-bottom: 1px solid #ccc;
-	padding-bottom: 8px;
-}
+    #linkedinLogo, #linkedinLogo2 {
+      display: none;
+    }
 
-#preview, #preview2 {
-	margin: 0 auto;
-	padding: 0;
-	border: none;
-	text-align:center;
-}
+    #optpositionpost, #optpositionpost2, #faxCont, #faxCont2 {
+      display: none;
+    }
 
-#linkedinLogo, #linkedinLogo2 {
-	display: none;
-}
+    #signature, #signature2 {
+      margin:0;
+      padding:0;
+      border:none;
+    }
 
-#optpositionpost, #optpositionpost2, #faxCont, #faxCont2 {
-	display: none;
-}
+    .logo {
+      cursor: pointer;
+    }
 
-#signature, #signature2 {
-	margin:0;
-	padding:0;
-	border:none;
-}
+    .selected {
+      border: 5px solid #ED3940 !important;
+    }
+  </style>
 
-.logo {cursor: pointer;}
-.selected {border: 5px solid #ED3940 !important;}
+  <script>
+  $(document).ready(function(){
+    var linkedin = $('#linkedin').val();
+    if (!linkedin) {
+      $('#linkedinLogo').hide();
+      $('#linkedinLogo2').hide();
+    } else {
+      $('#linkedinLogo').show();
+      $('#linkedinLogo2').show();
+    }
 
-</style>
+    $(".logo").click(function() {
+      $("#mainLogo").attr("src", $(this).attr("src"));
+      $(".logo").removeClass('selected');
+      $(this).addClass('selected');
+    });
 
-<script>
-$(document).ready(function(){
-	var linkedin = $('#linkedin').val();
-	if (!linkedin) {
-		$('#linkedinLogo').hide();
-		$('#linkedinLogo2').hide();
-	} else {
-		$('#linkedinLogo').show();
-		$('#linkedinLogo2').show();
-	}
+    $("#name").on('keyup change', function(){
+      $('#namePre').text($(this).val());
+    });
 
-	$(".logo").click(function() {
-		$("#mainLogo").attr("src", $(this).attr("src"));
-		$(".logo").removeClass('selected');
-		$(this).addClass('selected');
-	});
+    $("#email").on('keyup change', function(){
+      $('#emailPre').text($(this).val());
+    });
 
-	$("#name").on('keyup change', function(){
-		$('#namePre, #namePre2').text($(this).val());
-	});
+    $("#email").blur(function(){
+      var email = $(this).val();
+      $('#emailPre').text(email).attr("href", 'mailto:'+email);
+    });
 
-	$("#email").on('keyup change', function(){
-		$('#emailPre, #emailPreLink, #emailPre2, #emailPreLink2').text($(this).val());
-	});
+    $("#position").on('keyup change', function(){
+      $('#posPre').text($(this).val());
+    });
 
-	$("#email").blur(function(){
-		var email = $(this).val();
-		$('#emailPre, #emailPreLink, #emailPre2, #emailPreLink2').text(email);
-		$('#emailPre, #emailPreLink, #emailPre2, #emailPreLink2').attr("href", 'mailto:'+email);
-	});
+    $("#optposition").on('keyup change', function(){
+      var val = $(this).val();
+      if (val === '') {
+        $('#optpositionpost').hide();
+      } else {
+        $('#optpositionpost').show();
+      }
+      $('#optposPre').text(val);
+    });
 
-	$("#position").on('keyup change', function(){
-		$('#posPre, #posPre2').text($(this).val());
-	});
+    $("#fax").on('keyup change', function(){
+      var val = $(this).val();
+      if (val === '') {
+        $('#faxCont').hide();
+      } else {
+        $('#faxCont').show();
+      }
+      $('#faxNumb').text(val);
+    });
 
-	$("#optposition").on('keyup change', function(){
-		var val = $(this).val();
-		if (val === '') {
-			$('#optpositionpost, #optpositionpost2').hide();
-		} else {
-			$('#optpositionpost, #optpositionpost2').show();
-		}
-		$('#optposPre, #optposPre2').text(val);
-	});
+    $("#linkedin").on('keyup', function(){
+      $('#linkedinPre').attr("href", $(this).val());
+    });
 
-	$("#fax").on('keyup change', function(){
-		var val = $(this).val();
-		if (val === '') {
-			$('#faxCont, #faxCont2').hide();
-		} else {
-			$('#faxCont, #faxCont2').show();
-		}
-		$('#faxNumb, #faxNumb2').text(val);
-	});
+    $("#linkedin").blur(function(){
+      var val = $(this).val();
+      if (val && !val.match(/^http([s]?):\/\/.*/)) {
+        $(this).val('http://' + val);
+      }
+      if (val === '') {
+        $('#linkedinLogo').hide();
+      } else {
+        $('#linkedinLogo').show();
+      }
+      $('#linkedinPre').attr("href", $(this).val());
+    });
 
-	$("#linkedin").on('keyup', function(){
-		$('#linkedinPre, #linkedinPre2').attr("href", $(this).val());
-	});
+    $("#ext").on('keyup change', function(){
+      $('#extPre').text($(this).val());
+    });
 
-	$("#linkedin").blur(function(){
-		var val = $(this).val();
-		if (val && !val.match(/^http([s]?):\/\/.*/)) {
-			$(this).val('http://' + val);
-		}
-		if (val === '') {
-			$('#linkedinLogo, #linkedinLogo2').hide();
-		} else {
-			$('#linkedinLogo, #linkedinLogo2').show();
-		}
-		$('#linkedinPre, #linkedinPre2').attr("href", $(this).val());
-		$('#linkedinTestPre, #linkedinTestPre2').attr("href", $(this).val());
-		$('#linkedinTest, #linkedinTest2').text($(this).val());
-	});
+    $("#phone").on('keyup change', function(){
+      $('#extPhone').text($(this).val());
+    });
+  });
 
-	$("#ext").on('keyup change', function(){
-		$('#extPre, #extPre2').text($(this).val());
-	});
-
-	$("#phone").on('keyup change', function(){
-		$('#extPhone, #extPhone2').text($(this).val());
-	});
-});
-
-function selectAllContents(node) {
-	var sel = window.getSelection();
-	var range = document.createRange();
-	sel.removeAllRanges();
-	range.selectNodeContents(node);
-	sel.addRange(range);
-}
-</script>
+  function selectAllContents(node) {
+    var sel = window.getSelection();
+    var range = document.createRange();
+    sel.removeAllRanges();
+    range.selectNodeContents(node);
+    sel.addRange(range);
+  }
+  </script>
 
 </head>
-<body>
+<body style="text-align:left; margin:0; padding:0;">
 
-<div style="width: 900px; margin:0 auto; text-align:left;">
-	<img src="national-march-madness-header.png" width="900" alt="" style="display:block; margin:0 auto;">
+<img src="national-march-madness-header.png" width="900" alt="" style="display:block; margin:20px auto;">
 
-	<div style="width: 900px; margin: 0 auto; margin-top: 15px;">
-		<div style="width: 440px; height: 320px; float: left;">
-			<font style="font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;">
-				<strong>STEP 1:</strong> Please fill out the following fields below with your personal information<br><br>
-				<hr style="margin-bottom: 35px;">
-			</font>
-			
-			<form>
-				<span>First & Last Name</span><br><br>
-				<input id="name" type="text" maxlength="35">
+<div style="width:900px; margin:0 auto;">
+  <div style="width:440px; float:left;">
+    <strong>STEP 1:</strong> Please fill out the following fields below with your personal information<br><br>
+    <hr style="margin-bottom:35px;">
 
-				<span>Email Address</span><br><br>
-				<input id="email" type="text" maxlength="35">
+    <form>
+      <span>First & Last Name</span><br><br>
+      <input id="name" type="text" maxlength="35">
 
-				<span>LinkedIn Profile Address</span><br><br>
-				<input id="linkedin" type="text">
+      <span>Email Address</span><br><br>
+      <input id="email" type="text" maxlength="35">
 
-				<span>Position</span><br><br>
-				<input maxlength="40" id="position" type="text">
+      <span>LinkedIn Profile Address</span><br><br>
+      <input id="linkedin" type="text">
 
-				<span>Phone Number</span><br><br>
-				<input id="phone" type="text">
+      <span>Position</span><br><br>
+      <input maxlength="40" id="position" type="text">
 
-				<span>Cellphone Number</span><br><br>
-				<input id="fax" type="text">
-			</form>
-		</div>
+      <span>Phone Number</span><br><br>
+      <input id="phone" type="text">
 
-		<div style="width: 440px; height: 320px; float:right; text-align:left;">
-			<div id="previewbox">
-				<font style="font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;">
-					<strong>STEP 2:</strong> Click the button to highlight your signature. <br><br>
-					<button style="margin-right:30px; padding:15px;" onclick="selectAllContents(document.getElementById('signatureWrapper'))">Gmail / Outlook</button><br><br>
-					
-					<strong>STEP 3:</strong> Press <em>CTRL+C</em> (or <em>Command + C</em> on a Mac) to copy the signature template.<br><br>
-					
-					<strong>STEP 4:</strong> You can now paste your signature into your preferred email client (Outlook or Gmail). Click on your email client below for a tutorial.<br><br>
+      <span>Cellphone Number</span><br><br>
+      <input id="fax" type="text">
+    </form>
+  </div>
 
-					<div style="text-align:center;">
-						<a href="https://support.google.com/mail/answer/8395?hl=en&co=GENIE.Platform%3DDesktop" target="_blank" style="text-decoration:none; color:#0000EE;">Gmail</a> &nbsp;|&nbsp;
-						<a href="https://support.microsoft.com/en-us/office/change-an-email-signature-86597769-e4df-4320-b219-39d6e1a9e87b" target="_blank" style="text-decoration:none; color:#0000EE;">Outlook</a>
-					</div>
-				</font>
-			</div>
-		</div>
-		<br clear="all"/>
-	</div>
-
-	<h1 style="font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;">
-		<img onclick="selectAllContents(document.getElementById('signatureWrapper'))" style="margin-bottom:-16px; cursor:pointer;" src="outlook.png" width="206" height="54" alt="signature preview"/> SIGNATURE PREVIEW
-	</h1>
-	<br>
-
-	<div id="preview">
-		<div id="signatureWrapper" style="display:inline-block; margin:0 auto; text-align:left;">
-			<table id="signature" cellpadding="0" cellspacing="0" style="text-align:left; min-width:700px; max-width:800px; width:600px; min-height:70px; border:none; margin:0; padding:0;">
-				<tr valign="middle">
-					<td width="350" align="right" style="border-right:#a80000 2px solid; padding-top:0px; padding-right:1px;">
-						<a href="https://www.national1927.com" target="_blank">
-							<img id="mainLogo" src="national-march-madness-sig.jpg" width="263" style="border:none; margin-top:10px; padding-bottom:25px; display:block;">
-						</a>
-					</td>
-					<td align="left" width="350" style="padding-left:20px; padding-right:10px;">
-						<span id="namePre" style="text-transform:uppercase; font-size:18px; color:#444; font-weight:bold; margin-right:10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;">John Smith</span>
-						<a id="linkedinPre" href="http://www.linkedin.com" target="_blank">
-							<img id="linkedinLogo" src="linkedlin.png" width="20" height="20" alt="" style="vertical-align:middle;">
-						</a><br>
-
-						<span style="font-size:14px; padding-bottom:10px; color:#444; margin-right:10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;">
-							<span style="font-size:14px;" id="posPre">Sales Representative</span><br>
-							<span style="font-size:13px; font-weight:600; color:#A80000; margin-right:10px; margin-top:10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;">e. </span>
-							<a id="emailPreLink" style="font-size:13px; color:#444; margin-right:10px; font-family: Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif; text-decoration:none;" href="mailto:jsmith@national1927.com" target="_blank">
-								<span id="emailPre" style="font-size:13px; color:#444; margin-right:10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;">jsmith@national1927.com</span>
-							</a><br>
-							
-							<span id="optpositionpost" style="font-size:13px; padding-bottom:10px; color:#444; margin-right:10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;">
-								<span id="optposPre"></span><br>
-							</span>
-							
-							<span style="font-size:12px; font-weight:600; color:#a80000; margin-right:10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;">p. </span>
-							<span id="extPhone" style="font-size:12px; color:#444; margin-right:10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif; text-align:right;">(123) 456-7890</span><br>
-							
-							<span id="faxCont" style="font-size:12px; font-weight:600; color:#a80000; margin-right:10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;">c.
-								<span id="faxNumb" style="font-weight:normal; font-size:12px; color:#444; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif; text-align:right; margin-left:12px;"></span><br>
-							</span>
-
-							<span style="font-size:12px; font-weight:600; color:#a80000; margin:0 8px 0 0; padding-bottom:10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;">w. </span>
-							<span style="font-size:12px; color:#444; margin-right:10px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;">
-								<a href="http://national1927.com" target="_blank">national1927.com</a>
-							</span><br>
-
-							<span style="font-size:8px; display:block; line-height:0.8em;">&nbsp;</span>
-						</span>
-
-						<a href="https://www.linkedin.com/company/national-business-equipment/" target="_blank">
-							<img border="0" width="28" height="28" src="linkedlin.png" alt="LinkedIn icon">
-						</a>
-						<a href="https://www.facebook.com/national1927/" target="_blank">
-							<img border="0" width="28" height="28" src="facebook.png" alt="facebook icon">
-						</a>
-						<a href="https://twitter.com/national1927" target="_blank">
-							<img border="0" width="28" height="28" src="twitter.png" alt="twitter icon">
-						</a>
-						<a href="http://www.youtube.com/channel/UCqnHNWD_rABOFhfBNVylcXg" target="_blank">
-							<img border="0" width="28" height="28" src="youtube.png" alt="youtube icon">
-						</a>
-					</td>
-				</tr>
-				<tr valign="middle">
-					<td colspan="2"></td>
-				</tr>
-			</table>
-		</div>
-	</div>
-	<br><br>
+  <div style="width:440px; float:right; text-align:left;">
+    <strong>STEP 2:</strong> Click the button to highlight your signature. <br><br>
+    <button style="padding:15px;" onclick="selectAllContents(document.getElementById('signatureWrapper'))">Gmail / Outlook</button><br><br>
+    
+    <strong>STEP 3:</strong> Press <em>CTRL+C</em> (or <em>Command + C</em> on a Mac) to copy the signature template.<br><br>
+    
+    <strong>STEP 4:</strong> You can now paste your signature into your preferred email client (Outlook or Gmail). Click on your email client below for a tutorial.<br><br>
+    
+    <div style="text-align:left;">
+      <a href="https://support.google.com/mail/answer/8395?hl=en&co=GENIE.Platform%3DDesktop" target="_blank" style="text-decoration:none; color:#0000EE;">Gmail</a> &nbsp;|&nbsp;
+      <a href="https://support.microsoft.com/en-us/office/change-an-email-signature-86597769-e4df-4320-b219-39d6e1a9e87b" target="_blank" style="text-decoration:none; color:#0000EE;">Outlook</a>
+    </div>
+  </div>
+  <br clear="all"/>
 </div>
 
+<h1><img onclick="selectAllContents(document.getElementById('signatureWrapper'))" style="cursor:pointer; vertical-align:middle;"></h1>
+
+<div id="preview" style="width:900px; margin:0 auto; text-align:left;">
+  <div id="signatureWrapper" style="display:inline-block; margin:0; padding:0; text-align:left;">
+    <!-- Minimal, left-aligned signature snippet -->
+    <table id="signature" cellpadding="0" cellspacing="0" border="0" width="600" align="left" style="border:none; margin:0; padding:0; text-align:left;">
+      <tr valign="middle">
+        <td width="350" align="right" style="border-right:2px solid #a80000; padding:0;">
+          <a href="https://www.national1927.com" style="text-decoration:none; border:none;">
+            <img src="national-march-madness-sig.jpg" width="263" style="display:block; border:none; margin:0; padding:0;">
+          </a>
+        </td>
+        <td width="250" align="left" style="padding:0 10px 0 20px; text-align:left;">
+          <span id="namePre" style="text-transform:uppercase; font-size:18px; color:#444; font-weight:bold; font-family:Segoe, 'Segoe UI', sans-serif;">John Smith</span>
+          <a id="linkedinPre" href="http://www.linkedin.com" style="text-decoration:none; border:none; vertical-align:middle;">
+            <img id="linkedinLogo" src="linkedlin.png" width="20" height="20" style="vertical-align:middle; border:none;">
+          </a><br>
+          
+          <span style="font-size:14px; color:#444; font-family:Segoe, 'Segoe UI', sans-serif;" id="posPre">Sales Representative</span><br>
+
+          <span style="font-size:13px; font-weight:600; color:#A80000; font-family:Segoe, 'Segoe UI', sans-serif;">e. </span>
+          <a id="emailPre" href="mailto:jsmith@national1927.com" style="font-size:13px; color:#444; text-decoration:none; font-family:Segoe, 'Segoe UI', sans-serif;">jsmith@national1927.com</a><br>
+          
+          <span id="optpositionpost" style="font-size:13px; color:#444; font-family:Segoe, 'Segoe UI', sans-serif;">
+            <span id="optposPre"></span><br>
+          </span>
+          
+          <span style="font-size:12px; font-weight:600; color:#a80000; font-family:Segoe, 'Segoe UI', sans-serif;">p. </span>
+          <span id="extPhone" style="font-size:12px; color:#444; font-family:Segoe, 'Segoe UI', sans-serif;">(123) 456-7890</span><br>
+          
+          <span id="faxCont" style="font-size:12px; font-weight:600; color:#a80000; font-family:Segoe, 'Segoe UI', sans-serif;">c.
+            <span id="faxNumb" style="font-weight:normal; font-size:12px; color:#444; font-family:Segoe, 'Segoe UI', sans-serif; margin-left:12px;"></span><br>
+          </span>
+
+          <span style="font-size:12px; font-weight:600; color:#a80000; font-family:Segoe, 'Segoe UI', sans-serif;">w. </span>
+          <a href="http://national1927.com" style="font-size:12px; color:#444; text-decoration:none; font-family:Segoe, 'Segoe UI', sans-serif;">national1927.com</a><br>
+
+          <a href="https://www.linkedin.com/company/national-business-equipment/" style="text-decoration:none;border:none;">
+            <img border="0" width="28" height="28" src="linkedlin.png" alt="LinkedIn icon" style="border:none;vertical-align:middle;">
+          </a><a href="https://www.facebook.com/national1927/" style="text-decoration:none;border:none;">
+            <img border="0" width="28" height="28" src="facebook.png" alt="facebook icon" style="border:none;vertical-align:middle;">
+          </a><a href="https://twitter.com/national1927" style="text-decoration:none;border:none;">
+            <img border="0" width="28" height="28" src="twitter.png" alt="twitter icon" style="border:none;vertical-align:middle;">
+          </a><a href="http://www.youtube.com/channel/UCqnHNWD_rABOFhfBNVylcXg" style="text-decoration:none;border:none;">
+            <img border="0" width="28" height="28" src="youtube.png" alt="youtube icon" style="border:none;vertical-align:middle;">
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<br><br>
 </body>
 </html>
